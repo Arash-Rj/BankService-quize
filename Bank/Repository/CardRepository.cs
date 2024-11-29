@@ -15,7 +15,8 @@ public class CardRepository : ICardRepository
     }
     public float GetCardAmount(string cardnumber)
     {
-        return BankDbContext.Cards.SingleOrDefault(c => c.CardNumber.Equals(cardnumber)).Balance;
+        var card = BankDbContext.Cards.SingleOrDefault(c => c.CardNumber.Equals(cardnumber));
+        return card.Balance;
     }
     public Result DoesCardExists(string cardnumber, string password)
     {

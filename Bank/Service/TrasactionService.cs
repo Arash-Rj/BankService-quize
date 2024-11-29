@@ -15,6 +15,16 @@ namespace Bank.Service
         ICardService cardservice = new CardService();
         public Result Transfer(string sourcecard, string destinationcard, float amount)
         {
+            var transactionamount = Transactionrepository.TransactionAmountInDay(sourcecard);
+            if(transactionamount >= 250)
+            {
+                return new Result(false, " Transfer limit has been exceeded.");
+            }
+            if(transactionamount + amount > 250)
+            {
+                return new Result(false, $"The Transfer limit will be  exceeded.Entered amonut must be less than {transactionamount-250}");
+            }
+     
             if(amount < 0)
             {
                 return new Result(false, "The transfer amount must be greater than zero.");
@@ -25,7 +35,16 @@ namespace Bank.Service
                 var isenough = cardservice.IsAmountenough(sourcecard, destinationcard,amount);
                 if(isenough.IsDone)
                 {
-                    Transactionrepository.Transfer(sourcecard, destinationcard, amount);
+                    var isdone = false;
+                    try
+                    {
+                        isdone = Transactionrepository.Transfer(sourcecard, destinationcard, amount);
+                    }
+                   catch(Exception ex)
+                    {
+                        return new Result(false,"An Error accured during transaction.");
+                    }
+                    return new Result(isdone);
                 }
                 return new Result(false,isenough.Message);
             }
