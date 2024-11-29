@@ -57,6 +57,7 @@ void Login()
     if (res.IsDone == true)
     {
         membermenu(Cardnumebr);
+        loginCount = 0;
     }
     else
     {
@@ -64,7 +65,9 @@ void Login()
         if (loginCount == 3)
         {
             Console.WriteLine("You have entered wrong numbers 3 times, your card is now deactivated.");
+            loginCount = 0;
             ResultMessage(cardService.DeActivateCard(Cardnumebr));
+            Console.ReadKey();
         }
     }
 }

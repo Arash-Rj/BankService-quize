@@ -37,4 +37,9 @@ public class CardRepository : ICardRepository
     {
         return BankDbContext.Cards.Any(c => c.CardNumber == cardnumber);
     }
+
+    public bool IsCardActive(string cardnumber)
+    {
+        return BankDbContext.Cards.SingleOrDefault(c => c.CardNumber == cardnumber).IsActive;
+    }
 }

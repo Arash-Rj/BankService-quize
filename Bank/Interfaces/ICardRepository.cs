@@ -8,4 +8,5 @@ public interface ICardRepository
     public float GetCardAmount(string cardnumber);
     public Result DoesCardExists(string cardnumber,string password);
     public bool IsCardNumberValid(string cardnumber);
+    public bool IsCardActive(string cardnumber);
 }

@@ -36,6 +36,11 @@ namespace Bank.Service
                var doesexists =  CardRepository.DoesCardExists(cardnumber, password);
                 if(doesexists.IsDone)
                 {
+                    var isactive = CardRepository.IsCardActive(cardnumber);
+                    if(!isactive)
+                    {
+                        return new Result(false, "Card is not active.");
+                    }
                     return new Result(true);
                 }
                 return new Result(false,doesexists.Message);
@@ -63,8 +68,9 @@ namespace Bank.Service
                 return new Result(false,"The card number is wrong");
             }
             card.IsActive = false;
+            BankDbContext.Cards.Update(card);
             BankDbContext.SaveChanges();
-            return new Result(true);
+            return new Result(true,"Your card is deactivated.");
         }
     }
 }
