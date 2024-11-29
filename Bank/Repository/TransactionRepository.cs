@@ -42,6 +42,6 @@ public class TransactionRepository : ITransactionRepository
     }
     public List<BankTransaction> GetCardTransactions(string cardnumber)
     {
-       return BankDbContext.Transactions.AsNoTracking().Where(t => t.SourceCardNumber==cardnumber && t.DestinationCardNumber == cardnumber).ToList();
+       return BankDbContext.Transactions.AsNoTracking().Where(t => t.SourceCardNumber==cardnumber || t.DestinationCardNumber == cardnumber).ToList();
     }
 }
