@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Tansfer Page</title>
+    <style>
+        body
+        {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items:center;
+            height: 650px;
+            margin: 0%;
+            background-color: #316b6a;
+        }
+        .transfer-container
+        {
+            text-align: center;
+            padding: 50px;
+            border-radius: 10%;
+            margin: 25px;
+            width: 300px;
+            background-color: rgb(28, 184, 137);
+        }
+        input[type="text"], input[type="number"], button {
+            width: 85%;
+            padding: 16px;
+            margin: 7px 2px;
+            border: 2px solid #140808;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #33824f;
+            color: rgb(0, 0, 0);          
+        }
+    </style>
+</head>
+
+<body>
+
+    <p style="height: 70vh; width: 80vh; font-size: 150px;">
+        Transfer with ease.
+    </p>
+<div class="transfer-container" style="margin-right: 30vh; margin-top: 30vh;">
+    <label style="color: rgb(144, 246, 255); font-size: 20px;">Recipient Card Number</label>
+<input type="text" placeholder="Recipient Card Number" required>
+<label style="color: rgb(144, 246, 255); font-size: 20px;">Transfer Amount</label>
+<input type="number" placeholder="Amount" required>
+<button type="submit">Transfer</button>
+</div>
+</body>
+
+</html>

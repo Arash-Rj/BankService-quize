@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f9f9f9;
+            padding: 20px;
+        }
+        .transactions-container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="transactions-container">
+        <h2>Transaction List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2024-11-28</td>
+                    <td>Payment to John</td>
+                    <td>$100</td>
+                    <td>Completed</td>
+                </tr>
+                <tr>
+                    <td>2024-11-27</td>
+                    <td>Transfer from Jane</td>
+                    <td>$200</td>
+                    <td>Pending</td>
+                </tr>
+                <tr>
+                    <td>2024-11-25</td>
+                    <td>Online Purchase</td>
+                    <td>$50</td>
+                    <td>Failed</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

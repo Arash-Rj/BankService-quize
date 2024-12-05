@@ -21,5 +21,6 @@ public class BankDbContext : DbContext
 
     public DbSet<Card> Cards { get; set; }
     public DbSet<BankTransaction> Transactions { get; set; }
+    public DbSet<User> Users { get; set; }
 
 }

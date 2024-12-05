@@ -16,15 +16,14 @@ namespace Bank.Service
         public Result Transfer(string sourcecard, string destinationcard, float amount)
         {
             var transactionamount = Transactionrepository.TransactionAmountInDay(sourcecard);
-            if(transactionamount >= 250)
+            if(transactionamount >= 1250)
             {
                 return new Result(false, " Transfer limit has been exceeded.");
             }
-            if(transactionamount + amount > 250)
+            if(transactionamount + amount > 1250)
             {
-                return new Result(false, $"The Transfer limit will be  exceeded.Entered amonut must be less than {transactionamount-250}");
-            }
-     
+                return new Result(false, $"The Transfer limit will be  exceeded.Entered amonut must be less than {1250 - transactionamount}");
+            }    
             if(amount < 0)
             {
                 return new Result(false, "The transfer amount must be greater than zero.");

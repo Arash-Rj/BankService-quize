@@ -15,27 +15,34 @@ public class TransactionRepository : ITransactionRepository
         BankTransaction transaction = new BankTransaction(destinationcard,sourcecard,amount);
         var destncard = cardRepository.GetCardByNo(destinationcard);
         var sourccard = cardRepository.GetCardByNo(sourcecard);
-        sourccard.Balance -= amount;
+        float feeamount = 0;
+        if (amount > 1000)
+        { 
+            feeamount = (float)(0.015 * amount + amount);
+        }
+        else 
+        { 
+            feeamount = (float)(0.005 * amount + amount); 
+        }
+        sourccard.Balance -= feeamount;
         try
         {
             destncard.Balance += amount;
-    
         }
         catch (Exception ex)
         {
             sourccard.Balance += amount;
             throw new Exception();
         }      
-
         BankDbContext.Cards.Update(destncard);
-        BankDbContext.Cards.Update(sourccard);
+        BankDbContext.Cards.Update(sourccard);  
         BankDbContext.Transactions.Add(transaction);
         BankDbContext.SaveChanges();
         return true;
     }
     public float TransactionAmountInDay(string cardnumber)
     {
-        var transactions = BankDbContext.Transactions.Where(t => t.SourceCardNumber == cardnumber && t.TransactionDate.DayOfYear == DateTime.Now.DayOfYear).ToList();
+        var transactions = BankDbContext.Transactions.Where(t => t.SourceCardNumber == cardnumber && t.TransactionDate.Date == DateTime.Now.Date).ToList();
         float amount = 0;
         transactions.ForEach(t => amount += t.Amount);
         return amount;

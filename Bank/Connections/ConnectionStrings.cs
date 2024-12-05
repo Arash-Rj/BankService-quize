@@ -6,6 +6,6 @@ public class ConnectionStrings
 
     static ConnectionStrings()
     {
-        Connection1 = @"Data Source=DESKTOP-7648UU0\SQLEXPRESS; Initial Catalog=Bank1; User Id=sa; Password=123456; TrustServerCertificate=True;";
+        Connection1 = @"Data Source=DESKTOP-7648UU0\SQLEXPRESS; Initial Catalog=Bank; User Id=sa; Password=123456; TrustServerCertificate=True;";
     }
 }

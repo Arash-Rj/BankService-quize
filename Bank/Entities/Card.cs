@@ -10,6 +10,8 @@ public class Card
     public string HolderName { get; set; }
     public bool IsActive { get; set; }
     public float Balance { get; set; }
+    public int UserId { get; set; }
+    public User User { get; set; }
     public  List<BankTransaction> DepositTransactions { get; set; }
     public  List<BankTransaction> WithdrawTransactions { get; set; }
     public Card()

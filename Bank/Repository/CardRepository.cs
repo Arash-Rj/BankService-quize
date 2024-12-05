@@ -23,12 +23,7 @@ public class CardRepository : ICardRepository
         var doesexists = BankDbContext.Cards.Any(c => c.CardNumber == cardnumber && c.password == password);
         if (doesexists)
         {
-          var isactive = BankDbContext.Cards.Any(c => c.CardNumber == cardnumber && c.IsActive == true);
-            if (isactive)
-            {
-                return new Result(isactive);
-            }
-            return new Result(false,"The card is not active.");   
+           return new Result(doesexists);
         }
         return new Result(false,"The card does not exists.");
     }
@@ -42,4 +37,16 @@ public class CardRepository : ICardRepository
     {
         return BankDbContext.Cards.SingleOrDefault(c => c.CardNumber == cardnumber).IsActive;
     }
+
+    public float? GetCardBalance(string cardnumber)
+    {
+        return BankDbContext.Cards.FirstOrDefault(c => c.CardNumber.Equals(cardnumber))?.Balance;
+    }
+
+    //public bool IsCardPasswordValid(string currentpassword)
+    //{
+    //    return BankDbContext.Cards.Any(c => c.password == currentpassword);
+    //}
+
+
 }

@@ -2,9 +2,11 @@
 using Bank.Entities;
 using Bank.Interfaces;
 using Bank.Repository;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +16,7 @@ namespace Bank.Service
     {
         ICardRepository CardRepository = new CardRepository();
         private BankDbContext BankDbContext = new BankDbContext();
+        private string path =@"D:/programming/BAnk/Bank/Bank/Codes.txt";
         public Result IsAmountenough(string sourcecardnumber, string destinationcardnumber, float amount)
         {
            var destcardamount= CardRepository.GetCardAmount(destinationcardnumber);
@@ -71,6 +74,51 @@ namespace Bank.Service
             BankDbContext.Cards.Update(card);
             BankDbContext.SaveChanges();
             return new Result(true,"Your card is deactivated.");
+        }
+
+        public Result CardBalance(string cardnumber)
+        {
+            var isvalid = IsCardNumberValid(cardnumber);
+            if(isvalid.IsDone)
+            {
+               var cardbalance = CardRepository.GetCardBalance(cardnumber);
+                return new Result(true, $"Your card balance is: {cardbalance}");
+            }
+            return isvalid;
+        }
+
+        public Result ChangecardPass(string cardnumber, string currentpassword, string newpassword)
+        {
+           var isvalid =  CardRepository.DoesCardExists(cardnumber,currentpassword);
+            if(isvalid.IsDone)
+            {
+                var card = CardRepository.GetCardByNo(cardnumber);
+                card.password = newpassword;
+                BankDbContext.Update(card);
+                BankDbContext.SaveChanges();
+                return new Result(true, "Password changed successfully.");
+            }
+            return new Result(false,"The entered password is wrong.Please try again.");
+        }
+
+        public Result GetCardHoldername(string cardnumber)
+        {
+          var name = CardRepository.GetCardByNo(cardnumber).HolderName;
+            if(name == null)
+            {
+                return new Result(false, "Could not find holder's name.");
+
+            }
+            return new Result(true, $"Reciever's name: {name}");
+        }
+
+        public int GenerateRandomCode()
+        {
+            Random random = new Random();
+            int randomcode = random.Next(1000, 10000);
+            string resullt = JsonConvert.SerializeObject(randomcode);
+            File.WriteAllText(path, resullt);
+            return randomcode;
         }
     }
 }
